@@ -13,6 +13,9 @@ public class CalculatorFunctions {
             if(value != 0) {
                 currentTotal = currentTotal / value;
             }
+            else {
+                throw new IllegalArgumentException("cannot divide by zero");
+            }
         }
         else {
             currentTotal = value;
