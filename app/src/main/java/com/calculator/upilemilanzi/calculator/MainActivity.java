@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activity = this;
+
+        //register observer
+        new CalculatorFunctions();
 
         textToDisplay = (TextView) findViewById(R.id.txtDisplay);
         txtScreen = (TextView) findViewById(R.id.txtScreen);
@@ -80,33 +84,34 @@ public class MainActivity extends AppCompatActivity {
         currentOperator = "";
         switch(operator){
             case "+":
-                CalculatorFunctions.Addition(numberEntered);
+                CalculatorFunctions.projectData.triggerAdd(numberEntered);
                 numberEntered = 0;
                 break;
 
             case "-":
-                CalculatorFunctions.Subtract(numberEntered);
+                CalculatorFunctions.projectData.triggerSubtract(numberEntered);
                 numberEntered = 0;
                 break;
 
             case "/":
-                CalculatorFunctions.Divide(numberEntered);
+                CalculatorFunctions.projectData.triggerDivide(numberEntered);
                 numberEntered = 0;
                 break;
 
             case "*":
-                CalculatorFunctions.Multiply(numberEntered);
+                CalculatorFunctions.projectData.triggerMultiply(numberEntered);
                 numberEntered = 0;
                 break;
 
             case "=":
-                DisplayText(Integer.toString(CalculatorFunctions.Results()));
+                DisplayText(Integer.toString(CalculatorFunctions.projectData.DisplayData()));
+                CalculatorFunctions.currentTotal = 0;
                 break;
 
             case "C":
                 CalculatorFunctions.currentTotal = 0;
                 numberEntered = 0;
-                DisplayText(Integer.toString(CalculatorFunctions.Results()));
+                DisplayText(Integer.toString(CalculatorFunctions.projectData.DisplayData()));
                 break;
         }
         currentOperator = operator;
@@ -118,11 +123,8 @@ public class MainActivity extends AppCompatActivity {
             txtScreen.setText(text);
             textToDisplay.append(text);
         }
-        /*else {
-            if(text.equalsIgnoreCase("=")) {
-                textToDisplay.append(text);
-                //textToDisplay.append(text);
-            }
-        }*/
+        else{
+            textToDisplay.setText("");
+        }
     }
 }

@@ -10,30 +10,38 @@ import static org.junit.Assert.*;
 public class CalculatorFunctionsTest {
     @Test
     public void divide() throws Exception {
-        CalculatorFunctions.Divide(6);
-        CalculatorFunctions.Divide(2);
-        assertEquals("incorrect",3,CalculatorFunctions.Results());
+        registerObserver();
+        CalculatorFunctions.projectData.triggerDivide(6);
+        CalculatorFunctions.projectData.triggerDivide(2);
+        assertEquals("incorrect",3,CalculatorFunctions.projectData.DisplayData());
     }
 
     @Test
     public void multiply() throws Exception {
-        CalculatorFunctions.Multiply(2);
-        CalculatorFunctions.Multiply(3);
-        assertEquals("incorrect",6,CalculatorFunctions.Results());
+        registerObserver();
+        CalculatorFunctions.projectData.triggerMultiply(2);
+        CalculatorFunctions.projectData.triggerMultiply(3);
+        assertEquals("incorrect",6,CalculatorFunctions.projectData.DisplayData());
     }
 
     @Test
     public void subtract() throws Exception {
-        CalculatorFunctions.Subtract(2);
-        CalculatorFunctions.Subtract(2);
-        assertEquals("incorrect",0,CalculatorFunctions.Results());
+        registerObserver();
+        CalculatorFunctions.projectData.triggerSubtract(2);
+        CalculatorFunctions.projectData.triggerSubtract(2);
+        assertEquals("incorrect",0,CalculatorFunctions.projectData.DisplayData());
     }
 
     @Test
     public void addition() throws Exception {
-        CalculatorFunctions.Addition(2);
-        CalculatorFunctions.Addition(2);
-        assertEquals("incorrect",4,CalculatorFunctions.Results());
+        registerObserver();
+        CalculatorFunctions.projectData.triggerAdd(2);
+        CalculatorFunctions.projectData.triggerAdd(2);
+        assertEquals("incorrect",4,CalculatorFunctions.projectData.DisplayData());
+    }
+
+    public void registerObserver(){
+        new CalculatorFunctions();
     }
 
 }
