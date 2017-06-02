@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Button button = (Button) v;
                 numberEntered = Integer.parseInt(button.getText().toString());
-                DisplayText(Integer.toString(numberEntered));
+                DisplayText(Integer.toString(numberEntered),false);
 
                 if(numberEntered != 0){
                     ChooseOperator(currentOperator);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 Button button = (Button)v;
                 ChooseOperator(button.getText().toString());
                 if(currentOperator != "C") {
-                    DisplayText(button.getText().toString());
+                    DisplayText(button.getText().toString(),false);
                 }
             }
         };
@@ -104,24 +104,28 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case "=":
-                DisplayText(Integer.toString(CalculatorFunctions.projectData.DisplayData()));
+                DisplayText(Integer.toString(CalculatorFunctions.projectData.DisplayData()),true);
                 CalculatorFunctions.currentTotal = 0;
                 break;
 
             case "C":
                 CalculatorFunctions.currentTotal = 0;
                 numberEntered = 0;
-                DisplayText(Integer.toString(CalculatorFunctions.projectData.DisplayData()));
+                DisplayText(Integer.toString(CalculatorFunctions.projectData.DisplayData()),true);
+                textToDisplay.append("");
+                operator = "";
                 break;
         }
         currentOperator = operator;
 
     }
 
-    public void DisplayText(String text){
+    public void DisplayText(String text, boolean append){
         if(!text.equalsIgnoreCase("=") && !text.equalsIgnoreCase("C")) {
             txtScreen.setText(text);
-            textToDisplay.append(text);
+            if(!append) {
+                textToDisplay.append(text);
+            }
         }
         else{
             textToDisplay.setText("");

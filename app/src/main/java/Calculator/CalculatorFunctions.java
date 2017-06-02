@@ -9,7 +9,7 @@ import observable.ProjectData;
 
 public class CalculatorFunctions implements ObjectObserver {
 
-    public static int currentTotal = 0;
+    public static int currentTotal;
     public static ProjectData projectData;
 
     public CalculatorFunctions(){
@@ -17,6 +17,7 @@ public class CalculatorFunctions implements ObjectObserver {
         //register the observer
         projectData = new ProjectData();
         projectData.RegisterObserver(this);
+        currentTotal = 0;
     }
 
     @Override
