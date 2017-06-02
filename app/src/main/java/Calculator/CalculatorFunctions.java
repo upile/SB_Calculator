@@ -1,4 +1,4 @@
-package com.calculator.upilemilanzi.calculator;
+package Calculator;
 
 import Observable.ObjectObserver;
 import Observable.ProjectData;
@@ -10,13 +10,13 @@ import Observable.ProjectData;
 public class CalculatorFunctions implements ObjectObserver {
 
     public static int currentTotal = 0;
-    static ProjectData projectData;
+    public static ProjectData projectData;
 
     public CalculatorFunctions(){
 
         //register the observer
         projectData = new ProjectData();
-        projectData.registerObserver(this);
+        projectData.RegisterObserver(this);
     }
 
     @Override
@@ -26,17 +26,14 @@ public class CalculatorFunctions implements ObjectObserver {
 
     @Override
     public void Subtract(int value) {
-        if(currentTotal != 0) {
+        if(!IsCurrentTotalZero(value)) {
             currentTotal = currentTotal - value;
-        }
-        else{
-            currentTotal = value;
         }
     }
 
     @Override
     public void Divide(int value) {
-        if(currentTotal != 0) {
+        if(!IsCurrentTotalZero(value)) {
             if(value != 0) {
                 currentTotal = currentTotal / value;
             }
@@ -44,19 +41,26 @@ public class CalculatorFunctions implements ObjectObserver {
                 throw new IllegalArgumentException("cannot divide by zero");
             }
         }
-        else {
-            currentTotal = value;
-        }
     }
 
     @Override
     public void Multiply(int value) {
-        if(currentTotal != 0) {
+        if(!IsCurrentTotalZero(value)) {
             currentTotal = currentTotal * value;
         }
-        else{
+    }
+
+    /**
+     * Checks if currentTotal is zero.
+     * if currentTotal is zero, assigns the enterd
+     * @return A String data type.
+     */
+    public boolean IsCurrentTotalZero(int value){
+        if(currentTotal == 0) {
             currentTotal = value;
+            return true;
         }
+        return false;
     }
 
     @Override

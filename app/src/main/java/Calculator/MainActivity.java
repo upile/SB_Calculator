@@ -1,4 +1,4 @@
-package com.calculator.upilemilanzi.calculator;
+package Calculator;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setNumericButtonClickListener();
-        setOperatorOnClickListener();
+        SetNumericButtonClickListener();
+        SetOperatorOnClickListener();
     }
 
-    public void setNumericButtonClickListener(){
+    public void SetNumericButtonClickListener(){
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,13 +52,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
         // Assign the listener to all the numeric buttons
         for (int id : numericButtons) {
             findViewById(id).setOnClickListener(listener);
         }
     }
 
-    private void setOperatorOnClickListener() {
+    private void SetOperatorOnClickListener() {
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -84,22 +84,22 @@ public class MainActivity extends AppCompatActivity {
         currentOperator = "";
         switch(operator){
             case "+":
-                CalculatorFunctions.projectData.triggerAdd(numberEntered);
+                CalculatorFunctions.projectData.TriggerAdd(numberEntered);
                 numberEntered = 0;
                 break;
 
             case "-":
-                CalculatorFunctions.projectData.triggerSubtract(numberEntered);
+                CalculatorFunctions.projectData.TriggerSubtract(numberEntered);
                 numberEntered = 0;
                 break;
 
             case "/":
-                CalculatorFunctions.projectData.triggerDivide(numberEntered);
+                CalculatorFunctions.projectData.TriggerDivide(numberEntered);
                 numberEntered = 0;
                 break;
 
             case "*":
-                CalculatorFunctions.projectData.triggerMultiply(numberEntered);
+                CalculatorFunctions.projectData.TriggerMultiply(numberEntered);
                 numberEntered = 0;
                 break;
 

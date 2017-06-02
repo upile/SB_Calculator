@@ -5,28 +5,28 @@ public class ProjectData implements ObservableObject
 	public ObjectObserver objectObserver;
 
 	@Override
-	public void registerObserver(ObjectObserver objectObserver) 
+	public void RegisterObserver(ObjectObserver objectObserver)
 	{
 		this.objectObserver = objectObserver;
 	}
 
 	@Override
-	public void triggerAdd(int value) {
+	public void TriggerAdd(int value) {
 		objectObserver.Add(value);
 	}
 
 	@Override
-	public void triggerSubtract(int value) {
+	public void TriggerSubtract(int value) {
 		objectObserver.Subtract(value);
 	}
 
 	@Override
-	public void triggerDivide(int value) {
+	public void TriggerDivide(int value) {
 		objectObserver.Divide(value);
 	}
 
 	@Override
-	public void triggerMultiply(int value) {
+	public void TriggerMultiply(int value) {
 		objectObserver.Multiply(value);
 	}
 

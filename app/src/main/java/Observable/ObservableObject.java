@@ -2,10 +2,10 @@ package Observable;
 
 public interface ObservableObject
 {
-    void registerObserver(ObjectObserver objectObserver);
-    void triggerAdd(int value);
-    void triggerSubtract(int value);
-    void triggerDivide(int value);
-    void triggerMultiply(int value);
+    void RegisterObserver(ObjectObserver objectObserver);
+    void TriggerAdd(int value);
+    void TriggerSubtract(int value);
+    void TriggerDivide(int value);
+    void TriggerMultiply(int value);
     int DisplayData();
 }
