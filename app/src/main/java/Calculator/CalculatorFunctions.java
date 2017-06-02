@@ -1,7 +1,7 @@
-package Calculator;
+package calculator;
 
-import Observable.ObjectObserver;
-import Observable.ProjectData;
+import observable.ObjectObserver;
+import observable.ProjectData;
 
 /**
  * Created by upilemilanzi on 2017/05/25.

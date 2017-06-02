@@ -1,4 +1,4 @@
-package Calculator;
+package calculator;
 
 import android.app.Activity;
 import android.os.Bundle;

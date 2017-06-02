@@ -1,4 +1,4 @@
-package Observable;
+package observable;
 
 public interface ObjectObserver
 {
