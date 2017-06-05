@@ -1,7 +1,7 @@
-package calculator;
+package com.upile.calculator;
 
-import observable.ObjectObserver;
-import observable.ProjectData;
+import com.upile.calculator.observable.ObjectObserver;
+import com.upile.calculator.observable.ProjectData;
 
 /**
  * Created by upilemilanzi on 2017/05/25.

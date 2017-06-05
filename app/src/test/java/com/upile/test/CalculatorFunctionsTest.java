@@ -1,9 +1,9 @@
-package test;
+package com.upile.test;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import calculator.CalculatorFunctions;
+import com.upile.calculator.CalculatorFunctions;
 
 import static org.junit.Assert.*;
 

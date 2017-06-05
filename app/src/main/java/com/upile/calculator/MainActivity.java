@@ -1,4 +1,4 @@
-package calculator;
+package com.upile.calculator;
 
 import android.app.Activity;
 import android.os.Bundle;

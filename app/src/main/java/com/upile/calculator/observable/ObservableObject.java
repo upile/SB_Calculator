@@ -1,4 +1,4 @@
-package observable;
+package com.upile.calculator.observable;
 
 public interface ObservableObject
 {
