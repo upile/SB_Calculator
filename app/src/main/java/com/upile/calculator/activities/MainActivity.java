@@ -1,4 +1,4 @@
-package com.upile.calculator;
+package com.upile.calculator.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.upile.calculator.R;
+import com.upile.calculator.common.Constants;
+import com.upile.calculator.operators.CalculatorOperators;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtScreen;
     Activity activity;
     String currentOperator = "";
+    StringBuilder valueClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         activity = this;
 
         //register observer
-        new CalculatorFunctions();
+        new CalculatorOperators();
+        valueClicked = new StringBuilder();
 
         textToDisplay = (TextView) findViewById(R.id.txtDisplay);
         txtScreen = (TextView) findViewById(R.id.txtScreen);
@@ -35,21 +41,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SetNumericButtonClickListener();
-        SetOperatorOnClickListener();
+        setNumericButtonClickListener();
+        setOperatorOnClickListener();
     }
 
-    public void SetNumericButtonClickListener(){
+    public void setNumericButtonClickListener(){
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Button button = (Button) v;
-                numberEntered = Integer.parseInt(button.getText().toString());
-                DisplayText(Integer.toString(numberEntered),false);
-
-                if(numberEntered != 0){
-                    ChooseOperator(currentOperator);
-                }
+                String value = button.getText().toString();
+                textToDisplay.append(value);
+                valueClicked.append(value);
+                numberEntered = Integer.parseInt(valueClicked.toString());
+                displayText(Integer.toString(numberEntered));
             }
         };
 
@@ -59,16 +64,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void SetOperatorOnClickListener() {
+    private void setOperatorOnClickListener() {
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                valueClicked = new StringBuilder();
                 Button button = (Button)v;
-                ChooseOperator(button.getText().toString());
-                if(currentOperator != "C") {
-                    DisplayText(button.getText().toString(),false);
+
+                if(!currentOperator.equalsIgnoreCase(Constants.EQUAL_OPERATOR)){
+                    chooseOperator(currentOperator);
+                }
+
+                chooseOperator(button.getText().toString());
+
+                if(!currentOperator.equalsIgnoreCase(Constants.CANCEL_OPERATOR)) {
+                    textToDisplay.append(button.getText().toString());
+                    displayText(button.getText().toString());
                 }
             }
         };
@@ -79,39 +91,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void ChooseOperator(String operator){
+    public void chooseOperator(String operator){
 
         currentOperator = "";
         switch(operator){
-            case "+":
-                CalculatorFunctions.projectData.TriggerAdd(numberEntered);
+            case Constants.ADD_OPERATOR:
+                CalculatorOperators.projectData.triggerAdd(numberEntered);
                 numberEntered = 0;
                 break;
 
-            case "-":
-                CalculatorFunctions.projectData.TriggerSubtract(numberEntered);
+            case Constants.SUBTRACT_OPERATOR:
+                CalculatorOperators.projectData.triggerSubtract(numberEntered);
                 numberEntered = 0;
                 break;
 
-            case "/":
-                CalculatorFunctions.projectData.TriggerDivide(numberEntered);
+            case Constants.DIVIDE_OPERATOR:
+                CalculatorOperators.projectData.triggerDivide(numberEntered);
                 numberEntered = 0;
                 break;
 
-            case "*":
-                CalculatorFunctions.projectData.TriggerMultiply(numberEntered);
+            case Constants.MULTIPLY_OPERATOR:
+                CalculatorOperators.projectData.triggerMultiply(numberEntered);
                 numberEntered = 0;
                 break;
 
-            case "=":
-                DisplayText(Integer.toString(CalculatorFunctions.projectData.DisplayData()),true);
-                CalculatorFunctions.currentTotal = 0;
+            case Constants.EQUAL_OPERATOR:
+                displayText(Integer.toString(CalculatorOperators.projectData.displayData()));
+                CalculatorOperators.currentTotal = 0;
                 break;
 
-            case "C":
-                CalculatorFunctions.currentTotal = 0;
+            case Constants.CANCEL_OPERATOR:
+                CalculatorOperators.currentTotal = 0;
                 numberEntered = 0;
-                DisplayText(Integer.toString(CalculatorFunctions.projectData.DisplayData()),true);
+                displayText(Integer.toString(CalculatorOperators.projectData.displayData()));
                 textToDisplay.append("");
                 operator = "";
                 break;
@@ -120,12 +132,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void DisplayText(String text, boolean append){
-        if(!text.equalsIgnoreCase("=") && !text.equalsIgnoreCase("C")) {
+    public void displayText(String text){
+        if(!text.equalsIgnoreCase(Constants.EQUAL_OPERATOR) && !text.equalsIgnoreCase(Constants.CANCEL_OPERATOR)) {
             txtScreen.setText(text);
-            if(!append) {
-                textToDisplay.append(text);
-            }
         }
         else{
             textToDisplay.setText("");
